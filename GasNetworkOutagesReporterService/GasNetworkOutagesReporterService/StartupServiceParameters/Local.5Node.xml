@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServices xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="EmailService_InstanceCount" Value="1" />
+    <Parameter Name="ReportCreatorService_PartitionCount" Value="1" />
+    <Parameter Name="ReportCreatorService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="ReportCreatorService_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="ReportArchivatorService_PartitionCount" Value="1" />
+    <Parameter Name="ReportArchivatorService_MinReplicaSetSize" Value="3" />
+    <Parameter Name="ReportArchivatorService_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="GasNetworkOutstagesReporter.Api_InstanceCount" Value="1" />
+  </Parameters>
+</StartupServices>
