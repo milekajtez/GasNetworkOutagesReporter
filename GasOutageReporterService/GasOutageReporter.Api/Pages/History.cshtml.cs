@@ -2,10 +2,13 @@
 
 namespace GasOutageReporter.Api.Pages
 {
-    public class PrivacyModel : PageModel
+    public class HistoryModel : PageModel
     {
+        //public string Message { get; set; }
+
         public void OnGet()
         {
+            //Message = "Here you have list ";
         }
     }
 }
