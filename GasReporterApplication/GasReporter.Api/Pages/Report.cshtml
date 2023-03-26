@@ -1,0 +1,52 @@
+﻿@page
+@model ReportModel
+@{
+    ViewData["Title"] = "Report a fault";
+}
+<head>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button2 {
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+        }
+
+            .button2:hover {
+                background-color: #008CBA;
+                color: white;
+            }
+    </style>
+</head>
+<h2>@ViewData["Title"]</h2>
+<div style="text-align: center">
+    <h3>Add a new report</h3>
+    <form method="post">
+        <label for="details">Report details</label><br>
+        <input type="text" id="details" name="details">
+        <br /><br />
+        <label for="address">Report address</label><br>
+        <input type="text" id="address" name="address">
+        <br /><br />
+        <label for="worker">Worker full name</label><br>
+        <input type="text" id="worker" name="worker">
+        <br /><br />
+        <label for="Steps">Future steps (Please separate the steps with ";")</label><br>
+        <textarea asp-for="Steps" cols="115" id="Steps" name="Steps" rows="10"></textarea>
+        <br /><br />
+        <input type="submit" value="Create new report" class="button button2">
+    </form>
+</div>
