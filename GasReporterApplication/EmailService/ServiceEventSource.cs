@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Fabric;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace GasReporterCreator
+namespace EmailService
 {
-    [EventSource(Name = "MyCompany-GasReporterApplication-GasReporterCreator")]
+    [EventSource(Name = "MyCompany-GasReporterApplication-EmailService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
@@ -65,7 +61,7 @@ namespace GasReporterCreator
         }
 
         [NonEvent]
-        public void ServiceMessage(StatefulServiceContext serviceContext, string message, params object[] args)
+        public void ServiceMessage(StatelessServiceContext serviceContext, string message, params object[] args)
         {
             if (this.IsEnabled())
             {
@@ -73,7 +69,7 @@ namespace GasReporterCreator
                 ServiceMessage(
                     serviceContext.ServiceName.ToString(),
                     serviceContext.ServiceTypeName,
-                    serviceContext.ReplicaId,
+                    serviceContext.InstanceId,
                     serviceContext.PartitionId,
                     serviceContext.CodePackageActivationContext.ApplicationName,
                     serviceContext.CodePackageActivationContext.ApplicationTypeName,

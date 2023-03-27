@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GasReporterCreator")]
+[assembly: AssemblyTitle("EmailService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GasReporterCreator")]
+[assembly: AssemblyProduct("EmailService")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5c22fd0c-5af0-4549-a0a3-f25c20fa5928")]
+[assembly: Guid("22704776-a707-4f83-90c4-a3680963eb05")]
 
 // Version information for an assembly consists of the following four values:
 //
