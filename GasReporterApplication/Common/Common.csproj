@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\IReportCreator.cs" />
+    <Compile Include="Helpers\EmailData.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
