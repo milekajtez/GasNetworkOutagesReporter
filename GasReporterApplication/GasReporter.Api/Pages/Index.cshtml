@@ -69,29 +69,16 @@
             <th>OUTAGE MANAGEMENT STEPS</th>
             <th>ACTION</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Address 1</td>
-            <td>Details 1</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-            <td><button class="button button1">Archive</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Address 2</td>
-            <td>Details 2</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-            <td><button class="button button1">Archive</button></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Address 3</td>
-            <td>Details 3</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-            <td><button class="button button1">Archive</button></td>
-        </tr>
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td>@report.Report.Id</td>
+                <td>@report.Report.Address</td>
+                <td>@report.Report.Details</td>
+                <td>@report.Report.WorkerFullName</td>
+                <td><button class="button button2">View</button></td>
+                <td><button class="button button1">Archive</button></td>
+            </tr>
+        }
     </table>
 </div>

@@ -57,26 +57,15 @@
             <th>WORKER FIRST AND LAST NAME</th>
             <th>OUTAGE MANAGEMENT STEPS</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Address 1</td>
-            <td>Details 1</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Address 2</td>
-            <td>Details 2</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Address 3</td>
-            <td>Details 3</td>
-            <td>Mile Kajtez</td>
-            <td><button class="button button2">View</button></td>
-        </tr>
+        @foreach (var report in Model.ArchivedReports)
+        {
+            <tr>
+                <td>@report.Report.Id</td>
+                <td>@report.Report.Address</td>
+                <td>@report.Report.Details</td>
+                <td>@report.Report.WorkerFullName</td>
+                <td><button class="button button2">View</button></td>
+            </tr>
+        }
     </table>
 </div>
