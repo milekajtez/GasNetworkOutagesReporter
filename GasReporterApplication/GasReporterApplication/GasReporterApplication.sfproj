@@ -37,6 +37,7 @@
       <ServiceLaunchUrl>http://{MachineName}:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
     <ProjectReference Include="..\GasReporterCreatorService\GasReporterCreatorService.csproj" />
+    <ProjectReference Include="..\SummaryService\SummaryService.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>
