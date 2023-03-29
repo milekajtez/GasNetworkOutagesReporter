@@ -54,9 +54,7 @@
     <Compile Include="Abstractions\IReportCreator.cs" />
     <Compile Include="Abstractions\ISummary.cs" />
     <Compile Include="Helpers\EmailData.cs" />
-    <Compile Include="Helpers\SummaryData.cs" />
     <Compile Include="Models\Report.cs" />
-    <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -72,13 +72,24 @@
         @foreach (var report in Model.Reports)
         {
             <tr>
-                <td>@report.Report.Id</td>
-                <td>@report.Report.Address</td>
-                <td>@report.Report.Details</td>
-                <td>@report.Report.WorkerFullName</td>
-                <td><button class="button button2">View</button></td>
-                <td><button class="button button1">Archive</button></td>
+                <td>@report.Id</td>
+                <td>@report.Address</td>
+                <td>@report.Details</td>
+                <td>@report.WorkerFullName</td>
+                <td>
+                    @foreach (var step in report.Steps?.Split(';'))
+                    {
+                        <span>@step</span>
+                        <br />
+                    }
+                </td>
+                <td>
+                    <form method="put">
+                        <input type="submit" value="Archive" name="archive" id=@report.Id class="button button2">
+                    </form>
+                </td>
             </tr>
         }
     </table>
 </div>
+

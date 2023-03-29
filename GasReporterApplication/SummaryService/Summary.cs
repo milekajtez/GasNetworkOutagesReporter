@@ -15,44 +15,28 @@ namespace SummaryService
     {
         public Summary() { }
 
-        public List<SummaryData> GetSummaryData(bool isArchived)
+        public List<Report> GetReports(bool isArchived)
         {
             string a = ConfigurationManager.AppSettings["DataConnectionString"];
             var _storageAccount = CloudStorageAccount.Parse(a);
             var tableClient = new CloudTableClient(new Uri(_storageAccount.TableEndpoint.AbsoluteUri), _storageAccount.Credentials);
+            var reports = new List<Report>();
+
             var _tableReport = tableClient.GetTableReference("ReportTableStorage");
-            var _tableStep = tableClient.GetTableReference("StepTableStorage");
-
             var queryReports = new TableQuery<Report>();
-            var querySteps = new TableQuery<Step>();
-            var summaryData = new List<SummaryData>();
-
             if (isArchived)
             {
-                summaryData = _tableReport.ExecuteQuery(queryReports)
+                reports = _tableReport.ExecuteQuery(queryReports)
                     .Where(r => r.IsArchived)
-                    .Select(r => new SummaryData { Report = r })
                     .ToList();
             }
             else
             {
-                summaryData = _tableReport.ExecuteQuery(queryReports)
-                    .Select(r => new SummaryData { Report = r })
+                reports = _tableReport.ExecuteQuery(queryReports)
                     .ToList();
-            }
-
-            var allSteps = _tableStep.ExecuteQuery(querySteps).ToList();
-
-            foreach (var data in summaryData)
-            {
-                var steps = allSteps
-                    .Where(s => s.ReportId == data.Report.Id)
-                    .ToList();
-
-                data.Steps = steps;
             }
             
-            return summaryData;
+            return reports;
         }
     }
 }

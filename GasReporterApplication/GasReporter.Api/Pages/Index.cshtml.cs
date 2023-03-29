@@ -1,5 +1,6 @@
 ﻿using Common.Abstractions;
-using Common.Helpers;
+using Common.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace GasReporter.Api.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<SummaryData> Reports { get; set; }
+        public List<Report> Reports { get; set; }
 
         public void OnGet()
         {
@@ -21,7 +22,7 @@ namespace GasReporter.Api.Pages
             try
             {
                 summary = validationFactory.CreateChannel();
-                Reports = summary.GetSummaryData(false);
+                Reports = summary.GetReports(false);
             }
             catch (Exception e)
             {
@@ -31,6 +32,32 @@ namespace GasReporter.Api.Pages
 
             ((ICommunicationObject)summary).Close();
             validationFactory.Close();
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public void ArchiveReport()
+        {
+            var reportId = Request.Form["archive"];
+
+            /*string serviceUri = "fabric:/GasReporterApplication/GasReporterCreatorService";
+            var fabricClient = new FabricClient();
+            int partitionsNumber = (await fabricClient.QueryManager.GetPartitionListAsync(new Uri(serviceUri))).Count;
+            var binding = WcfUtility.CreateTcpClientBinding();
+            int index = 0;
+
+            for (int i = 0; i < partitionsNumber; i++)
+            {
+                var servicePartitionClient = new ServicePartitionClient<WcfCommunicationClient<IReportCreator>>(
+                    new WcfCommunicationClientFactory<IReportCreator>(clientBinding: binding),
+                    new Uri(serviceUri),
+                    new ServicePartitionKey(index % partitionsNumber));
+
+                await servicePartitionClient.InvokeWithRetryAsync(client =>
+                    client.Channel.ArchiveReport(reportId));
+
+                index++;
+            }*/
         }
     }
 }

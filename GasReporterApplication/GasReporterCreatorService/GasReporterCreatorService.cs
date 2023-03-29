@@ -47,7 +47,6 @@ namespace GasReporterCreatorService
         {
             var myDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
             var reportsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Report>>("ReportsDictionary");
-            var stepsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Step>>("StepsDictionary");
             var reportCreator = new ReportCreator(StateManager);
 
             while (true)

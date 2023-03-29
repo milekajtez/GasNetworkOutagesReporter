@@ -1,7 +1,6 @@
-﻿using Common.Helpers;
+﻿using Common.Models;
 using System.Collections.Generic;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace Common.Abstractions
 {
@@ -9,6 +8,6 @@ namespace Common.Abstractions
     public interface ISummary
     {
         [OperationContract]
-        List<SummaryData> GetSummaryData(bool isArchived);
+        List<Report> GetReports(bool isArchived);
     }
 }

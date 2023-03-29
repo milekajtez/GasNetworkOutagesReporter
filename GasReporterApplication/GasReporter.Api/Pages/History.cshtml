@@ -60,11 +60,17 @@
         @foreach (var report in Model.ArchivedReports)
         {
             <tr>
-                <td>@report.Report.Id</td>
-                <td>@report.Report.Address</td>
-                <td>@report.Report.Details</td>
-                <td>@report.Report.WorkerFullName</td>
-                <td><button class="button button2">View</button></td>
+                <td>@report.Id</td>
+                <td>@report.Address</td>
+                <td>@report.Details</td>
+                <td>@report.WorkerFullName</td>
+                <td>
+                    @foreach (var step in report.Steps?.Split(';'))
+                    {
+                        <span>@step</span>
+                        <br />
+                    }
+                </td>
             </tr>
         }
     </table>
