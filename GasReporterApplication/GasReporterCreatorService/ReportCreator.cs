@@ -27,39 +27,17 @@ namespace GasReporterCreatorService
         public async Task<bool> AddNewReport(string address, string details, string workerFullName, string steps)
         {
             var reportId = Guid.NewGuid();
-            var report = new Report(reportId.ToString("N"), Guid.NewGuid(), address, details, workerFullName, false);
-            var reportSteps = MakeStepsForSpecificReport(reportId, steps);
+            var report = new Report(reportId.ToString("N"), Guid.NewGuid(), address, details, workerFullName, steps, false);
 
             var reportsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Report>>("ReportsDictionary");
-            var stepsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Step>>("StepsDictionary");
 
             using (var tx = StateManager.CreateTransaction())
             {
-                // Reports
                 await reportsDictionary.AddAsync(tx, reportId.ToString("N"), report);
-
-                // Steps
-                foreach (var step in reportSteps) await stepsDictionary.AddAsync(tx, step.RowKey, step);
-
                 await tx.CommitAsync();
             }
 
             return true;
-        }
-
-        private List<Step> MakeStepsForSpecificReport(Guid reportId, string steps)
-        {
-            var stepsArray = steps.Split(';');
-            var result = new List<Step>();
-
-            for (int i = 0; i < stepsArray.Length - 1; i++)
-            {
-                result.Add(
-                    new Step(Guid.NewGuid().ToString("N"), Guid.NewGuid(), stepsArray[i], i + 1, reportId)
-                );
-            }
-
-            return result;
         }
         #endregion
 
@@ -71,13 +49,10 @@ namespace GasReporterCreatorService
             var _reportTable = tableClient.GetTableReference("ReportTableStorage");
             var _stepTable = tableClient.GetTableReference("StepTableStorage");
             var query = new TableQuery<Report>();
-
             var reportsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Report>>("ReportsDictionary");
-            var stepsDictionary = await StateManager.GetOrAddAsync<IReliableDictionary<string, Step>>("StepsDictionary");
 
             using (var tx = StateManager.CreateTransaction())
             {
-                // Reports
                 var reportEnumerable = await reportsDictionary.CreateEnumerableAsync(tx, key => key != "", EnumerationMode.Ordered);
                 var asyncReportEnumerator = reportEnumerable.GetAsyncEnumerator();
 
@@ -85,16 +60,6 @@ namespace GasReporterCreatorService
                 {
                     var insertOperation = TableOperation.InsertOrReplace(asyncReportEnumerator.Current.Value);
                     _reportTable.Execute(insertOperation);
-                }
-
-                // Steps
-                var stepEnumerable = await stepsDictionary.CreateEnumerableAsync(tx, key => key != "", EnumerationMode.Ordered);
-                var asyncStepEnumerator = stepEnumerable.GetAsyncEnumerator();
-
-                while (await asyncStepEnumerator.MoveNextAsync(cancellationToken))
-                {
-                    var insertOperation = TableOperation.InsertOrReplace(asyncStepEnumerator.Current.Value);
-                    _stepTable.Execute(insertOperation);
                 }
             }
 

@@ -1,5 +1,6 @@
 ﻿using Common.Abstractions;
 using Common.Helpers;
+using Common.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace GasReporter.Api.Pages
 {
     public class HistoryModel : PageModel
     {
-        public List<SummaryData> ArchivedReports { get; set; }
+        public List<Report> ArchivedReports { get; set; }
 
         public void OnGet()
         {
@@ -21,7 +22,7 @@ namespace GasReporter.Api.Pages
             try
             {
                 summary = validationFactory.CreateChannel();
-                ArchivedReports = summary.GetSummaryData(true);
+                ArchivedReports = summary.GetReports(true);
             }
             catch (Exception e)
             {
